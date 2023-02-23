@@ -26,8 +26,8 @@
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "resolveJsonModule": true,
-    "declarationDir": "./dist",
-    "outDir": "./dist",
+    "declarationDir": "./src",
+    "outDir": "./src",
     "rootDir": "./src"
   },
   "include": ["./src"]
