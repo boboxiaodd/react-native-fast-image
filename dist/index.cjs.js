@@ -1,6 +1,13 @@
-import _extends from '@babel/runtime/helpers/extends';
-import React, { forwardRef, memo } from 'react';
-import { NativeModules, StyleSheet, requireNativeComponent, Image, View, Platform } from 'react-native';
+'use strict';
+
+var _extends = require('@babel/runtime/helpers/extends');
+var React = require('react');
+var reactNative = require('react-native');
+
+function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
+
+var _extends__default = /*#__PURE__*/_interopDefaultLegacy(_extends);
+var React__default = /*#__PURE__*/_interopDefaultLegacy(React);
 
 const resizeMode = {
   contain: 'contain',
@@ -27,9 +34,9 @@ const resolveDefaultSource = defaultSource => {
     return null;
   }
 
-  if (Platform.OS === 'android') {
+  if (reactNative.Platform.OS === 'android') {
     // Android receives a URI string, and resolves into a Drawable using RN's methods.
-    const resolved = Image.resolveAssetSource(defaultSource);
+    const resolved = reactNative.Image.resolveAssetSource(defaultSource);
 
     if (resolved) {
       return resolved.uri;
@@ -64,12 +71,12 @@ function FastImageBase({
     const cleanedSource = { ...source
     };
     delete cleanedSource.cache;
-    const resolvedSource = Image.resolveAssetSource(cleanedSource);
-    return /*#__PURE__*/React.createElement(View, {
+    const resolvedSource = reactNative.Image.resolveAssetSource(cleanedSource);
+    return /*#__PURE__*/React__default['default'].createElement(reactNative.View, {
       style: [styles.imageContainer, style],
       ref: forwardedRef
-    }, /*#__PURE__*/React.createElement(Image, _extends({}, props, {
-      style: [StyleSheet.absoluteFill, {
+    }, /*#__PURE__*/React__default['default'].createElement(reactNative.Image, _extends__default['default']({}, props, {
+      style: [reactNative.StyleSheet.absoluteFill, {
         tintColor
       }],
       source: resolvedSource,
@@ -83,14 +90,14 @@ function FastImageBase({
     })), children);
   }
 
-  const resolvedSource = Image.resolveAssetSource(source);
+  const resolvedSource = reactNative.Image.resolveAssetSource(source);
   const resolvedDefaultSource = resolveDefaultSource(defaultSource);
-  return /*#__PURE__*/React.createElement(View, {
+  return /*#__PURE__*/React__default['default'].createElement(reactNative.View, {
     style: [styles.imageContainer, style],
     ref: forwardedRef
-  }, /*#__PURE__*/React.createElement(FastImageView, _extends({}, props, {
+  }, /*#__PURE__*/React__default['default'].createElement(FastImageView, _extends__default['default']({}, props, {
     tintColor: tintColor,
-    style: StyleSheet.absoluteFill,
+    style: reactNative.StyleSheet.absoluteFill,
     source: resolvedSource,
     defaultSource: resolvedDefaultSource,
     onFastImageLoadStart: onLoadStart,
@@ -102,8 +109,8 @@ function FastImageBase({
   })), children);
 }
 
-const FastImageMemo = /*#__PURE__*/memo(FastImageBase);
-const FastImageComponent = /*#__PURE__*/forwardRef((props, ref) => /*#__PURE__*/React.createElement(FastImageMemo, _extends({
+const FastImageMemo = /*#__PURE__*/React.memo(FastImageBase);
+const FastImageComponent = /*#__PURE__*/React.forwardRef((props, ref) => /*#__PURE__*/React__default['default'].createElement(FastImageMemo, _extends__default['default']({
   forwardedRef: ref
 }, props)));
 FastImageComponent.displayName = 'FastImage';
@@ -112,19 +119,19 @@ FastImage.resizeMode = resizeMode;
 FastImage.cacheControl = cacheControl;
 FastImage.priority = priority;
 
-FastImage.preload = sources => NativeModules.FastImageView.preload(sources);
+FastImage.preload = sources => reactNative.NativeModules.FastImageView.preload(sources);
 
-FastImage.clearMemoryCache = () => NativeModules.FastImageView.clearMemoryCache();
+FastImage.clearMemoryCache = () => reactNative.NativeModules.FastImageView.clearMemoryCache();
 
-FastImage.clearDiskCache = () => NativeModules.FastImageView.clearDiskCache();
+FastImage.clearDiskCache = () => reactNative.NativeModules.FastImageView.clearDiskCache();
 
-const styles = StyleSheet.create({
+const styles = reactNative.StyleSheet.create({
   imageContainer: {
     overflow: 'hidden'
   }
 }); // Types of requireNativeComponent are not correct.
 
-const FastImageView = requireNativeComponent('FastImageView', FastImage, {
+const FastImageView = reactNative.requireNativeComponent('FastImageView', FastImage, {
   nativeOnly: {
     onFastImageLoadStart: true,
     onFastImageProgress: true,
@@ -134,4 +141,4 @@ const FastImageView = requireNativeComponent('FastImageView', FastImage, {
   }
 });
 
-export default FastImage;
+module.exports = FastImage;
